@@ -15,7 +15,7 @@ export type CamelizeString<T extends PropertyKey> = T extends string
       : T
   : T;
 
-export type Camelize<T> = { [K in keyof T as CamelizeString<K>]: Camelize<T[K]> };
+export type Camelize<T> = T extends Function ? T : { [K in keyof T as CamelizeString<K>]: Camelize<T[K]> };
 
 export type Simplify<T> = T extends infer S ? { [K in keyof S]: S[K] } : never;
 export type Never<T> = Simplify<{ [P in keyof T]?: never }>;
